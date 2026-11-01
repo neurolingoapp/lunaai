@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="uz" data-theme="dark" data-accent="lavender">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<title>Luna AI</title>
+<meta name="description" content="Luna AI — eng kuchli AI'lar bitta ilovada">
+<meta name="theme-color" content="#0b1030">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Luna AI">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<div class="sky" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+
+<div class="app" id="app">
+  <!-- Yon panel: yangi chat, qidiruv, tarix, pastda sozlamalar -->
+  <aside class="side glass" id="side" aria-label="Chatlar">
+    <div class="side-top">
+      <div class="brand" id="brand"><span id="brandMoon"></span><span>Luna</span></div>
+      <button class="icon-btn press" id="sideHide" aria-label="Panelni yopish"><i data-ic="sidebar"></i></button>
+    </div>
+    <button class="new-chat liquid press" id="newChat"><i data-ic="plus"></i>Yangi chat</button>
+    <label class="search"><i data-ic="search"></i><input id="search" type="search" placeholder="Chatlarni qidirish" autocomplete="off"></label>
+    <nav class="history" id="history"></nav>
+    <div class="side-bottom">
+      <button class="install-btn press hidden" id="installBtn"><i data-ic="download"></i>Ilovani o'rnatish</button>
+      <button class="settings-btn liquid press" id="openSettings"><i data-ic="sliders"></i><span>Sozlamalar</span><small id="balance"></small></button>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main" id="main">
+    <header class="top">
+      <button class="icon-btn press" id="menuBtn" aria-label="Chatlar ro'yxati"><i data-ic="menu"></i></button>
+      <div class="top-title" id="topTitle">Luna AI</div>
+      <button class="icon-btn press" id="topNew" aria-label="Yangi chat"><i data-ic="edit"></i></button>
+    </header>
+
+    <section class="chat" id="chat" aria-live="polite"></section>
+
+    <div class="composer-wrap">
+      <form class="composer glass liquid" id="composer" autocomplete="off">
+        <div class="atts" id="atts"></div>
+        <textarea id="input" rows="1" placeholder="Luna'ga yozing..." aria-label="Xabar"></textarea>
+        <div class="tools">
+          <div class="tools-l">
+            <button type="button" class="icon-btn press" id="attachBtn" aria-label="Fayl qo'shish"><i data-ic="clip"></i></button>
+            <button type="button" class="icon-btn press" id="camBtn" aria-label="Rasmga olish"><i data-ic="camera"></i></button>
+            <div class="seg" id="modeSeg" role="radiogroup" aria-label="Rejim">
+              <span class="pill"></span>
+              <button type="button" data-mode="fast" role="radio"><i data-ic="bolt"></i><span>Tez</span></button>
+              <button type="button" data-mode="council" role="radio"><i data-ic="council"></i><span>Kengash</span></button>
+              <button type="button" data-mode="image" role="radio"><i data-ic="sparkle"></i><span>Rasm</span></button>
+            </div>
+            <button type="button" class="icon-btn press" id="webBtn" aria-label="Internetdan qidirish" aria-pressed="false"><i data-ic="globe"></i></button>
+          </div>
+          <div class="tools-r">
+            <button type="button" class="icon-btn mic press" id="micBtn" aria-label="Ovoz bilan yozish"><i data-ic="mic"></i></button>
+            <button type="submit" class="send press" id="sendBtn" aria-label="Yuborish"><i data-ic="up"></i></button>
+          </div>
+        </div>
+      </form>
+      <p class="hint">Luna ham xato qilishi mumkin. Muhim ma'lumotni tekshirib oling.</p>
+    </div>
+    <div class="drop" id="drop">Faylni shu yerga tashlang</div>
+  </main>
+
+  <!-- Sayt / o'yin / ilova ko'rish paneli -->
+  <aside class="preview glass" id="preview" aria-label="Ko'rish">
+    <div class="pv-top">
+      <b id="pvTitle">Ko'rish</b>
+      <button class="icon-btn press" id="pvReload" aria-label="Qayta ishga tushirish"><i data-ic="refresh"></i></button>
+      <button class="icon-btn press" id="pvFull" aria-label="To'liq ekran"><i data-ic="expand"></i></button>
+      <button class="icon-btn press" id="pvDl" aria-label="Yuklab olish"><i data-ic="download"></i></button>
+      <button class="icon-btn press" id="pvClose" aria-label="Yopish"><i data-ic="x"></i></button>
+    </div>
+    <iframe id="pvFrame" title="Ko'rish" sandbox="allow-scripts allow-forms allow-modals allow-pointer-lock allow-popups allow-downloads"></iframe>
+  </aside>
+</div>
+
+<input type="file" id="fileMedia" accept="image/*,video/*" multiple hidden>
+<input type="file" id="fileAny" multiple hidden>
+<input type="file" id="fileCapture" accept="image/*" capture="environment" hidden>
+<input type="file" id="fileImport" accept="application/json,.json" hidden>
+<div class="toasts" id="toasts" role="status"></div>
+</body>
+</html>
